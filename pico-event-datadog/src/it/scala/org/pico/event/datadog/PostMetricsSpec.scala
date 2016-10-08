@@ -4,7 +4,7 @@ import com.typesafe.config.ConfigFactory
 import org.pico.disposal.std.autoCloseable._
 import org.pico.disposal.{Auto, Eval}
 import org.pico.event.http.client._
-import org.pico.event.http.client.model.{HttpGet, HttpOk}
+import org.pico.event.http.client.model._
 import org.pico.event.syntax.source._
 import org.specs2.mutable.Specification
 
@@ -18,9 +18,24 @@ class PostMetricsSpec extends Specification {
 
   def nowSeconds: Long = System.currentTimeMillis() / 1000
 
-  val httpGetMetrics = HttpGet(s"https://app.datadoghq.com/api/v1/metrics?api_key=$apiKey&application_key=$appKey&from=$nowSeconds")
+  val httpGetMetrics = HttpPost(
+    url = s"https://app.datadoghq.com/api/v1/series?api_key=$apiKey",
+    entity = ApplicationJsonEntity(
+      s"""
+        |{ "series" :
+        |  [ { "metric":"test.metric"
+        |    , "points": [[$nowSeconds, 20]]
+        |    , "type": "gauge"
+        |    , "host": "test.example.com"
+        |    , "tags": ["environment:test"]
+        |    }
+        |  ]
+        |}
+      """.stripMargin))
 
-  "Download metrics" in {
+  println(httpGetMetrics)
+
+  "Post metrics" in {
     for {
       httpClient      <- Auto(HttpClient())
       _               <- Eval(httpClient.impl.start())
@@ -34,7 +49,7 @@ class PostMetricsSpec extends Specification {
       })
       _               <- Eval(httpSinkSource.publish(httpGetMetrics))
     } {
-      Thread.sleep(2000)
+      Thread.sleep(7000)
     }
 
     ok

@@ -13,12 +13,12 @@ import scala.io.Source
 
 class GetMetricsSpec extends Specification {
   val config = ConfigFactory.load()
-  val apiKey = config.getString("datadog.api.key")
-  val appKey = config.getString("datadog.app.key")
+  val apiKey = DatadogApiKey(config.getString("datadog.api.key"))
+  val appKey = DatadogAppKey(config.getString("datadog.app.key"))
 
   def nowSeconds: Long = System.currentTimeMillis() / 1000
 
-  val httpGetMetrics = HttpGet(s"https://app.datadoghq.com/api/v1/metrics?api_key=$apiKey&application_key=$appKey&from=$nowSeconds")
+  val httpGetMetrics = HttpGet(s"https://app.datadoghq.com/api/v1/metrics?api_key=${apiKey.value}&application_key=${appKey.value}&from=$nowSeconds")
 
   "Download metrics" in {
     for {

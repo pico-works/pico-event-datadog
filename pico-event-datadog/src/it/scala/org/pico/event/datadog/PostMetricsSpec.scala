@@ -14,8 +14,8 @@ import scala.io.Source
 
 class PostMetricsSpec extends Specification {
   val config = ConfigFactory.load()
-  val apiKey = config.getString("datadog.api.key")
-  val appKey = config.getString("datadog.app.key")
+  val apiKey = DatadogApiKey(config.getString("datadog.api.key"))
+  val appKey = DatadogAppKey(config.getString("datadog.app.key"))
 
   def nowSeconds: Long = System.currentTimeMillis() / 1000
 
@@ -31,7 +31,7 @@ class PostMetricsSpec extends Specification {
   println(series.asJson.spaces2)
 
   val httpGetMetrics = HttpPost(
-    url = s"https://app.datadoghq.com/api/v1/series?api_key=$apiKey",
+    url = s"https://app.datadoghq.com/api/v1/series?api_key=${apiKey.value}",
     entity = ApplicationJsonEntity(series.asJson.noSpaces))
 
   println(httpGetMetrics)

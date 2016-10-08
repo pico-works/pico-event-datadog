@@ -1,0 +1,5 @@
+
+datadog {
+  app.key = DATADOG_APP_KEY
+  api.key = DATADOG_API_KEY
+}

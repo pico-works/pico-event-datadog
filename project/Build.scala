@@ -4,7 +4,7 @@ import sbt._
 object Build extends sbt.Build {
   val pico_disposal           = "org.pico"      %%  "pico-disposal"           % "1.0.5"
   val pico_event              = "org.pico"      %%  "pico-event"              % "3.0.1"
-  val pico_event_http_client  = "org.pico"      %%  "pico-event-http-client"  % "0.0.1-6-01c28b0"
+  val pico_event_http_client  = "org.pico"      %%  "pico-event-http-client"  % "0.0.1-7-85e793e"
 
   val specs2_core             = "org.specs2"    %%  "specs2-core"             % "3.7.2"
   val typesafe_config         = "com.typesafe"  %   "config"                  % "1.3.1"

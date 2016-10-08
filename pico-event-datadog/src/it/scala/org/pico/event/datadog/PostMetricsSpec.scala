@@ -11,7 +11,7 @@ import org.specs2.mutable.Specification
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.io.Source
 
-class MetricsSpec extends Specification {
+class PostMetricsSpec extends Specification {
   val config = ConfigFactory.load()
   val apiKey = config.getString("datadog.api.key")
   val appKey = config.getString("datadog.app.key")

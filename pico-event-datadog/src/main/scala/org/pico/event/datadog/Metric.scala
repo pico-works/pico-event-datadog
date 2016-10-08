@@ -14,7 +14,7 @@ object Metric {
   implicit val metric_Encoder_Jza2hrp = Encoder.instance[Metric] { metric =>
     Map(
       "metric"      -> metric.name.asJson,
-      "point"       -> metric.points.asJson,
+      "points"      -> metric.points.asJson,
       "type"        -> metric.metricType.asJson,
       "host"        -> metric.host.asJson,
       "tags"        -> metric.tags.asJson

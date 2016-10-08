@@ -1,6 +1,7 @@
 package org.pico.event.datadog
 
 import com.typesafe.config.ConfigFactory
+import io.circe.syntax._
 import org.pico.disposal.std.autoCloseable._
 import org.pico.disposal.{Auto, Eval}
 import org.pico.event.http.client._
@@ -18,20 +19,20 @@ class PostMetricsSpec extends Specification {
 
   def nowSeconds: Long = System.currentTimeMillis() / 1000
 
+  val series = Series(
+    series = List(
+      Metric(
+        name = "test.metric",
+        points = List(nowSeconds -> 50L),
+        metricType = Gauge,
+        host = "test.example.com",
+        tags = List(Tag("environment:test")))))
+
+  println(series.asJson.spaces2)
+
   val httpGetMetrics = HttpPost(
     url = s"https://app.datadoghq.com/api/v1/series?api_key=$apiKey",
-    entity = ApplicationJsonEntity(
-      s"""
-        |{ "series" :
-        |  [ { "metric":"test.metric"
-        |    , "points": [[$nowSeconds, 20]]
-        |    , "type": "gauge"
-        |    , "host": "test.example.com"
-        |    , "tags": ["environment:test"]
-        |    }
-        |  ]
-        |}
-      """.stripMargin))
+    entity = ApplicationJsonEntity(series.asJson.noSpaces))
 
   println(httpGetMetrics)
 

@@ -7,6 +7,7 @@ import org.pico.event.http.client._
 import org.pico.event.http.client.model.{HttpGet, HttpOk}
 import org.pico.event.syntax.source._
 import org.specs2.mutable.Specification
+import org.pico.event.datadog.syntax._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.io.Source

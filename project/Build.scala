@@ -3,8 +3,8 @@ import sbt._
 
 object Build extends sbt.Build {
   val pico_disposal           = "org.pico"      %%  "pico-disposal"           % "1.0.5"
-  val pico_event              = "org.pico"      %%  "pico-event"              % "3.0.1"
-  val pico_event_http_client  = "org.pico"      %%  "pico-event-http-client"  % "0.0.1-9-6e70c1d"
+  val pico_event              = "org.pico"      %%  "pico-event"              % "3.0.2"
+  val pico_event_http_client  = "org.pico"      %%  "pico-event-http-client"  % "0.0.1-11-2ec254c"
   val circe_core              = "io.circe"      %%  "circe-core"              % "0.5.1"
 
   val specs2_core             = "org.specs2"    %%  "specs2-core"             % "3.7.2"

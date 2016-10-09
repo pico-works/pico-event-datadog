@@ -5,7 +5,7 @@ import io.circe.syntax._
 
 class SeriesSpec extends Specification {
   "Series should encode" in {
-    val series = Series(
+    val series = DatadogMetrics(
       series = List(
         Metric(
           name = "test.metric",
